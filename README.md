@@ -75,6 +75,7 @@ Carpeta para imágenes y recursos estáticos.
 
 Configuraciones de entorno.
 
+## Imagenes de la app
 
 
 ## Autor
@@ -87,3 +88,4 @@ Módulo 1 — Unidad 1
 - https://angular.dev
 - https://nodejs.org
 - Material de clase
+ 
