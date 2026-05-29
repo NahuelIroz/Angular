@@ -1,60 +1,76 @@
-<h1>Formulario de Registro</h1>
+<h1>
+  Formulario de Registro
+</h1>
 
 <p>
   Complete los siguientes datos para registrarse en el sistema.
 </p>
 
-<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()">
+<form
+  [formGroup]="formulario"
+  (ngSubmit)="enviarFormulario()"
+>
+
+  <!-- NOMBRE -->
 
   <div>
     <label>Nombre:</label>
+
     <input
       type="text"
       formControlName="nombre"
+      [ngClass]="{
+        'campo-invalido':
+        formulario.get('nombre')?.touched &&
+        formulario.get('nombre')?.invalid
+      }"
     >
 
-    <div *ngIf="formulario.get('nombre')?.touched &&
-                formulario.get('nombre')?.invalid">
+    <ul *ngIf="obtenerErrores('nombre').length > 0">
 
-      <p *ngIf="formulario.get('nombre')?.errors?.['required']">
-        El nombre es obligatorio
-      </p>
+      <li *ngFor="let error of obtenerErrores('nombre')">
+        {{ error }}
+      </li>
 
-      <p *ngIf="formulario.get('nombre')?.errors?.['minlength']">
-        El nombre debe tener al menos 3 caracteres
-      </p>
-
-    </div>
+    </ul>
   </div>
 
   <br>
+
+  <!-- EMAIL -->
 
   <div>
     <label>Email:</label>
+
     <input
       type="email"
       formControlName="email"
+      [ngClass]="{
+        'campo-invalido':
+        formulario.get('email')?.touched &&
+        formulario.get('email')?.invalid
+      }"
     >
 
-    <div *ngIf="formulario.get('email')?.touched &&
-                formulario.get('email')?.invalid">
+    <ul *ngIf="obtenerErrores('email').length > 0">
 
-      <p *ngIf="formulario.get('email')?.errors?.['required']">
-        El email es obligatorio
-      </p>
+      <li *ngFor="let error of obtenerErrores('email')">
+        {{ error }}
+      </li>
 
-      <p *ngIf="formulario.get('email')?.errors?.['email']">
-        Ingrese un email válido
-      </p>
-
-    </div>
+    </ul>
   </div>
 
   <br>
 
+  <!-- MENSAJE -->
+
   <div>
     <label>Mensaje:</label>
-    <textarea formControlName="mensaje"></textarea>
+
+    <textarea
+      formControlName="mensaje">
+    </textarea>
   </div>
 
   <br>
@@ -67,3 +83,11 @@
   </button>
 
 </form>
+
+<!-- MENSAJE DE ENVÍO -->
+
+<div *ngIf="enviado">
+  <h3>
+    Formulario enviado correctamente
+  </h3>
+</div>
