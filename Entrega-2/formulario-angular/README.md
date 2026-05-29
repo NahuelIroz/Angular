@@ -1,59 +1,146 @@
-# FormularioAngular
+# Formulario de Registro - Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+## Descripción del proyecto
 
-## Development server
+Este proyecto consiste en el desarrollo de un formulario interactivo utilizando Angular, aplicando formularios reactivos y directivas integradas.
 
-To start a local development server, run:
+El formulario permite registrar datos de un usuario mediante los siguientes campos:
+
+- **Nombre** (obligatorio, mínimo 3 caracteres).
+- **Email** (obligatorio, formato válido).
+- **Mensaje** (opcional).
+
+Además, se implementaron validaciones dinámicas, mensajes de error, deshabilitación del botón de envío mientras el formulario sea inválido y reinicio automático del formulario luego del envío exitoso.
+
+---
+
+## Tecnologías utilizadas
+
+- Angular
+- TypeScript
+- HTML
+- CSS
+- Formularios Reactivos (Reactive Forms)
+
+---
+
+## Instrucciones de instalación y ejecución
+
+### 1. Clonar el repositorio
+
+Ejecutar el siguiente comando en la terminal:
+
+```bash
+git clone https://github.com/USUARIO/NOMBRE-REPOSITORIO.git
+```
+
+Luego ingresar al proyecto:
+
+```bash
+cd NOMBRE-REPOSITORIO
+```
+
+---
+
+### 2. Instalar dependencias
+
+Ejecutar:
+
+```bash
+npm install
+```
+
+Este comando instalará todas las dependencias necesarias del proyecto.
+
+---
+
+### 3. Ejecutar el proyecto
+
+Para iniciar el servidor de desarrollo ejecutar:
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Luego abrir el navegador en:
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```txt
+http://localhost:4200
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+## Funcionalidades implementadas
+
+✔ Creación del componente `registro`.
+
+✔ Implementación de formulario reactivo con `FormBuilder`.
+
+✔ Validaciones:
+- Nombre obligatorio.
+- Nombre mínimo de 3 caracteres.
+- Email obligatorio.
+- Validación de formato de email.
+- Mensaje opcional.
+
+✔ Uso de directivas Angular:
+- `*ngIf` para mostrar mensajes de error.
+- `[disabled]` para bloquear el botón si el formulario es inválido.
+
+✔ Envío de datos a consola.
+
+✔ Reinicio del formulario después del envío.
+
+---
+
+## Ejemplo de ejecución en consola
+
+Cuando el formulario se completa correctamente y se presiona el botón **Enviar**, se muestran los datos ingresados en la consola del navegador.
+
+Ejemplo:
+
+```json
+{
+  "nombre": "Nahuel",
+  "email": "nahuel@gmail.com",
+  "mensaje": "Hola, este es un mensaje de prueba"
+}
 ```
 
-## Building
+Para visualizar la consola:
 
-To build the project run:
+1. Abrir la aplicación en el navegador.
+2. Presionar `F12`.
+3. Ir a la pestaña **Console**.
+4. Enviar el formulario.
 
-```bash
-ng build
-```
+---
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Autor
 
-## Running unit tests
+**Nombre del estudiante:** Nahuel Iróz.  
+**Curso:** Angular Básico - Módulo 1  
+**Unidad:** Unidad 2 - Directivas y Formularios
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+---
 
-```bash
-ng test
-```
+## Bibliografía y fuentes consultadas
 
-## Running end-to-end tests
+### Documentación oficial
 
-For end-to-end (e2e) testing, run:
+Angular. (s.f.). *Reactive Forms*.  
+https://angular.dev/guide/forms/reactive-forms
 
-```bash
-ng e2e
-```
+Angular. (s.f.). *Built-in Directives*.  
+https://angular.dev/guide/directives
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Angular. (s.f.). *Forms in Angular*.  
+https://angular.dev/guide/forms
 
-## Additional Resources
+### Bibliografía
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Freeman, A. (2020). *Pro Angular 9* (6ª ed.). Apress.
+
+### Créditos de imágenes
+
+No se utilizaron imágenes externas en el proyecto.
