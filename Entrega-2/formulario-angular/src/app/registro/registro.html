@@ -1,35 +1,36 @@
-<h1>
-  Formulario de Registro
-</h1>
+<h1>Formulario de Registro</h1>
 
 <p>
   Complete los siguientes datos para registrarse en el sistema.
 </p>
 
-<form
-  [formGroup]="formulario"
-  (ngSubmit)="enviarFormulario()"
->
+<form [formGroup]="formulario"
+      (ngSubmit)="enviarFormulario()">
 
   <!-- NOMBRE -->
-
   <div>
     <label>Nombre:</label>
 
     <input
       type="text"
       formControlName="nombre"
+
       [ngClass]="{
         'campo-invalido':
-        formulario.get('nombre')?.touched &&
-        formulario.get('nombre')?.invalid
+        formulario.get('nombre')?.invalid &&
+        formulario.get('nombre')?.touched
       }"
     >
 
-    <ul *ngIf="obtenerErrores('nombre').length > 0">
+    <ul *ngIf="formulario.get('nombre')?.invalid &&
+               formulario.get('nombre')?.touched">
 
-      <li *ngFor="let error of obtenerErrores('nombre')">
-        {{ error }}
+      <li *ngIf="formulario.get('nombre')?.errors?.['required']">
+        El nombre es obligatorio
+      </li>
+
+      <li *ngIf="formulario.get('nombre')?.errors?.['minlength']">
+        El nombre debe tener al menos 3 caracteres
       </li>
 
     </ul>
@@ -38,24 +39,29 @@
   <br>
 
   <!-- EMAIL -->
-
   <div>
     <label>Email:</label>
 
     <input
       type="email"
       formControlName="email"
+
       [ngClass]="{
         'campo-invalido':
-        formulario.get('email')?.touched &&
-        formulario.get('email')?.invalid
+        formulario.get('email')?.invalid &&
+        formulario.get('email')?.touched
       }"
     >
 
-    <ul *ngIf="obtenerErrores('email').length > 0">
+    <ul *ngIf="formulario.get('email')?.invalid &&
+               formulario.get('email')?.touched">
 
-      <li *ngFor="let error of obtenerErrores('email')">
-        {{ error }}
+      <li *ngIf="formulario.get('email')?.errors?.['required']">
+        El email es obligatorio
+      </li>
+
+      <li *ngIf="formulario.get('email')?.errors?.['email']">
+        Ingrese un email válido
       </li>
 
     </ul>
@@ -64,7 +70,6 @@
   <br>
 
   <!-- MENSAJE -->
-
   <div>
     <label>Mensaje:</label>
 
@@ -77,17 +82,12 @@
 
   <button
     type="submit"
-    [disabled]="formulario.invalid"
-  >
+    [disabled]="formulario.invalid">
     Enviar
   </button>
 
 </form>
 
-<!-- MENSAJE DE ENVÍO -->
-
 <div *ngIf="enviado">
-  <h3>
-    Formulario enviado correctamente
-  </h3>
+  <h3>Formulario enviado correctamente</h3>
 </div>

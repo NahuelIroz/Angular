@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-
 import {
   FormBuilder,
   FormGroup,
@@ -18,10 +17,12 @@ import {
 })
 export class RegistroComponent {
 
-  formulario: FormGroup;
-  enviado: boolean = false;
+  formulario!: FormGroup;
+  enviado = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit() {
 
     this.formulario = this.fb.group({
       nombre: [
@@ -40,43 +41,19 @@ export class RegistroComponent {
         ]
       ],
 
-      mensaje: ['']
+      mensaje: [' ']
     });
   }
 
-  obtenerErrores(campo: string): string[] {
-
-    const control = this.formulario.get(campo);
-
-    if (!control || !control.errors || !control.touched) {
-      return [];
-    }
-
-    const errores: string[] = [];
-
-    if (control.errors['required']) {
-      errores.push(`${campo} es obligatorio`);
-    }
-
-    if (control.errors['minlength']) {
-      errores.push(`${campo} debe tener al menos 3 caracteres`);
-    }
-
-    if (control.errors['email']) {
-      errores.push('Ingrese un email válido');
-    }
-
-    return errores;
-  }
-
-  enviarFormulario(): void {
+  enviarFormulario() {
 
     if (this.formulario.invalid) {
       this.formulario.markAllAsTouched();
       return;
     }
 
-    console.log('Datos enviados:', this.formulario.value);
+    console.log('Datos enviados');
+    console.log(this.formulario.value);
 
     this.enviado = true;
 
