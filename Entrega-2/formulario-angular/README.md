@@ -72,24 +72,24 @@ http://localhost:4200
 
 ## Funcionalidades implementadas
 
-✔ Creación del componente `registro`.
+## Creación del componente `registro`.
 
-✔ Implementación de formulario reactivo con `FormBuilder`.
+## Implementación de formulario reactivo con `FormBuilder`.
 
-✔ Validaciones:
+## Validaciones:
 - Nombre obligatorio.
 - Nombre mínimo de 3 caracteres.
 - Email obligatorio.
 - Validación de formato de email.
 - Mensaje opcional.
 
-✔ Uso de directivas Angular:
+## Uso de directivas Angular:
 - `*ngIf` para mostrar mensajes de error.
 - `[disabled]` para bloquear el botón si el formulario es inválido.
 
-✔ Envío de datos a consola.
+## Envío de datos a consola.
 
-✔ Reinicio del formulario después del envío.
+## Reinicio del formulario después del envío.
 
 ---
 
