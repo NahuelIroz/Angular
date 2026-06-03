@@ -1,15 +1,62 @@
-<h2>Lista de Productos</h2>
+<div class="container">
 
-<ul>
-  <li *ngFor="let producto of productos">
+  <h1>📦 Gestión de Productos</h1>
 
-    <h3>{{ producto.nombre }}</h3>
+  <div class="formulario">
 
-    <p>Precio: {{ producto.precio }}</p>
+    <input
+      type="text"
+      placeholder="Nombre del producto"
+      [(ngModel)]="nuevoNombre"
+    >
 
-    <p>Fecha Alta: {{ producto.fechaAlta }}</p>
+    <input
+      type="number"
+      placeholder="Precio"
+      [(ngModel)]="nuevoPrecio"
+    >
 
-    <hr>
+    <button (click)="agregarProducto()">
+      Agregar
+    </button>
 
-  </li>
-</ul>
+  </div>
+
+  <div *ngIf="productos.length === 0" class="vacio">
+    No hay productos cargados.
+  </div>
+
+  <div class="productos">
+
+    <div
+      class="card"
+      *ngFor="let producto of productos">
+
+      <h2>{{ producto.nombre }}</h2>
+
+      <p>
+        Precio:
+        {{ producto.precio | currency:'ARS':'symbol':'1.0-0' }}
+      </p>
+
+      <p>
+        Precio con 10% de descuento:
+        {{ producto.precio | descuento:10 | currency:'ARS':'symbol':'1.0-0' }}
+      </p>
+
+      <p>
+        Fecha Alta:
+        {{ producto.fechaAlta | date:'dd/MM/yyyy' }}
+      </p>
+
+      <button
+        class="btn-eliminar"
+        (click)="eliminarProducto(producto.id)">
+        Eliminar
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
