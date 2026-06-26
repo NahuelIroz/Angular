@@ -1,17 +1,94 @@
 <section class="page">
-  <div class="page-header">
-    <h2>Usuarios</h2>
-    <p>Gestiona los usuarios del sistema.</p>
+  <div class="hero-panel">
+    <div>
+      <p class="eyebrow">Gestión de talento</p>
+      <h2>Usuarios del sistema</h2>
+      <p>Explora, organiza y gestiona tus perfiles con una vista moderna y dinámica.</p>
+    </div>
+    <div class="hero-actions">
+      <div class="hero-badge">
+        <span>{{ usuarios().length }} usuarios</span>
+      </div>
+      <button type="button" class="add-btn" (click)="abrirFormulario()">+ Agregar usuario</button>
+    </div>
+  </div>
+
+  @if (mostrarFormulario) {
+    <div class="modal-backdrop">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Crear nuevo usuario</h3>
+          <button type="button" class="close-btn" (click)="cancelarFormulario()">×</button>
+        </div>
+
+        <form class="form-grid" (ngSubmit)="guardarUsuario()">
+          <label>
+            Nombre
+            <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Ej. Ana Torres" />
+          </label>
+
+          <label>
+            Email
+            <input type="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Ej. ana@mail.com" />
+          </label>
+
+          <label>
+            Rol
+            <select [(ngModel)]="nuevoUsuario.rol" name="rol">
+              <option value="Empleado">Empleado</option>
+              <option value="Administrador">Administrador</option>
+              <option value="Supervisor">Supervisor</option>
+            </select>
+          </label>
+
+          <label class="checkbox-row">
+            <input type="checkbox" [(ngModel)]="nuevoUsuario.activo" name="activo" />
+            Usuario activo
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="submit-btn">Crear usuario</button>
+            <button type="button" class="secondary-btn" (click)="cancelarFormulario()">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+
+  @if (mensajeExito) {
+    <div class="success-banner">
+      ✅ El usuario fue creado con éxito.
+    </div>
+  }
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <strong>3</strong>
+      <span>Perfiles activos</span>
+    </div>
+    <div class="stat-card">
+      <strong>2</strong>
+      <span>Roles distintos</span>
+    </div>
+    <div class="stat-card">
+      <strong>100%</strong>
+      <span>Disponibilidad</span>
+    </div>
   </div>
 
   <div class="card-grid">
     @for (usuario of usuarios(); track usuario.id) {
       <article class="card">
+        <div class="card-top">
+          <div class="avatar">{{ usuario.nombre.charAt(0) }}</div>
+          <span class="status" [class.active]="usuario.activo">{{ usuario.activo ? 'Activo' : 'Inactivo' }}</span>
+        </div>
         <h3>{{ usuario.nombre }}</h3>
         <p><strong>Email:</strong> {{ usuario.email }}</p>
         <p><strong>Rol:</strong> {{ usuario.rol }}</p>
-        <p><strong>Estado:</strong> {{ usuario.activo ? 'Activo' : 'Inactivo' }}</p>
-        <a [routerLink]="['/usuarios', usuario.id]">Ver detalle</a>
+        <div class="card-actions">
+          <a [routerLink]="['/usuarios', usuario.id]">Ver detalle</a>
+        </div>
       </article>
     }
   </div>

@@ -1,10 +1,10 @@
 import { Injectable, signal } from '@angular/core';
 import { Usuario } from '../models/usuario';
+
 @Injectable({
   providedIn: 'root'
 })
 export class UsuariosService {
-
   usuarios = signal<Usuario[]>([
     {
       id: 1,
@@ -29,4 +29,12 @@ export class UsuariosService {
     }
   ]);
 
+  agregarUsuario(usuario: Omit<Usuario, 'id'>): void {
+    const nuevoUsuario: Usuario = {
+      id: Date.now(),
+      ...usuario
+    };
+
+    this.usuarios.update((actual) => [nuevoUsuario, ...actual]);
+  }
 }

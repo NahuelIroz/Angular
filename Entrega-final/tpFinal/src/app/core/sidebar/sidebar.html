@@ -1,9 +1,15 @@
 <nav class="sidebar">
-  <h2>Gestión</h2>
+  <div class="sidebar-header">
+    <div class="brand-mark">G</div>
+    <div>
+      <h2>Gestión</h2>
+      <p>Panel central</p>
+    </div>
+  </div>
 
-  <a routerLink="/">🏠 Inicio</a>
-
-  <a routerLink="/usuarios">👤 Usuarios</a>
-
-  <a routerLink="/productos">📦 Productos</a>
+  <div class="nav-links">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">🏠 Inicio</a>
+    <a routerLink="/usuarios" routerLinkActive="active">👤 Usuarios</a>
+    <a routerLink="/productos" routerLinkActive="active">📦 Productos</a>
+  </div>
 </nav>
