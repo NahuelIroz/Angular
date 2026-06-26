@@ -1,1 +1,18 @@
-<p>usuarios-list works!</p>
+<section class="page">
+  <div class="page-header">
+    <h2>Usuarios</h2>
+    <p>Gestiona los usuarios del sistema.</p>
+  </div>
+
+  <div class="card-grid">
+    @for (usuario of usuarios(); track usuario.id) {
+      <article class="card">
+        <h3>{{ usuario.nombre }}</h3>
+        <p><strong>Email:</strong> {{ usuario.email }}</p>
+        <p><strong>Rol:</strong> {{ usuario.rol }}</p>
+        <p><strong>Estado:</strong> {{ usuario.activo ? 'Activo' : 'Inactivo' }}</p>
+        <a [routerLink]="['/usuarios', usuario.id]">Ver detalle</a>
+      </article>
+    }
+  </div>
+</section>
