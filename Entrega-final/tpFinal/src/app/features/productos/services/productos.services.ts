@@ -48,4 +48,8 @@ export class ProductosService {
       )
     );
   }
+
+  eliminarProducto(id: number): void {
+    this.productos.update((actual) => actual.filter((producto) => producto.id !== id));
+  }
 }

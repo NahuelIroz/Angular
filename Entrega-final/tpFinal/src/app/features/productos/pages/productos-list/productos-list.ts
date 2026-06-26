@@ -23,16 +23,20 @@ export class ProductosList {
   };
 
   productoEditando: Producto | null = null;
+  mensajeEstado = '';
 
   guardarProducto(): void {
-    if (!this.productoForm.nombre.trim()) {
+    if (!this.productoForm.nombre.trim() || !this.productoForm.categoria.trim()) {
+      this.mensajeEstado = 'Completa nombre y categoría.';
       return;
     }
 
     if (this.productoEditando) {
       this.productosService.actualizarProducto(this.productoEditando.id, this.productoForm);
+      this.mensajeEstado = '✅ Producto actualizado con éxito.';
     } else {
       this.productosService.agregarProducto(this.productoForm);
+      this.mensajeEstado = '✅ Producto creado con éxito.';
     }
 
     this.resetForm();
@@ -41,6 +45,11 @@ export class ProductosList {
   editarProducto(producto: Producto): void {
     this.productoEditando = producto;
     this.productoForm = { ...producto };
+  }
+
+  eliminarProducto(id: number): void {
+    this.productosService.eliminarProducto(id);
+    this.mensajeEstado = '🗑️ Producto eliminado con éxito.';
   }
 
   resetForm(): void {

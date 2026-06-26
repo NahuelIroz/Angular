@@ -37,4 +37,8 @@ export class UsuariosService {
 
     this.usuarios.update((actual) => [nuevoUsuario, ...actual]);
   }
+
+  eliminarUsuario(id: number): void {
+    this.usuarios.update((actual) => actual.filter((usuario) => usuario.id !== id));
+  }
 }

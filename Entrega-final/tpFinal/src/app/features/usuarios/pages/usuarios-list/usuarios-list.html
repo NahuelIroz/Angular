@@ -32,6 +32,10 @@
             <input type="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Ej. ana@mail.com" />
           </label>
 
+          @if (mensajeError) {
+            <div class="error-banner">{{ mensajeError }}</div>
+          }
+
           <label>
             Rol
             <select [(ngModel)]="nuevoUsuario.rol" name="rol">
@@ -58,6 +62,12 @@
   @if (mensajeExito) {
     <div class="success-banner">
       ✅ El usuario fue creado con éxito.
+    </div>
+  }
+
+  @if (mensajeEliminacion) {
+    <div class="success-banner">
+      {{ mensajeEliminacion }}
     </div>
   }
 
@@ -88,6 +98,7 @@
         <p><strong>Rol:</strong> {{ usuario.rol }}</p>
         <div class="card-actions">
           <a [routerLink]="['/usuarios', usuario.id]">Ver detalle</a>
+          <button type="button" class="delete-btn" (click)="eliminarUsuario(usuario.id)">Eliminar</button>
         </div>
       </article>
     }

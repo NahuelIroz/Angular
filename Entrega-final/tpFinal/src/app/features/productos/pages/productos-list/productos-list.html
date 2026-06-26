@@ -1,14 +1,36 @@
 <section class="page">
   <div class="hero-panel">
-    <div>
+    <div class="hero-content">
       <p class="eyebrow">Gestión inteligente</p>
       <h2>Catálogo de productos</h2>
-      <p>Agrega, edita y administra tus productos desde una sola vista.</p>
+      <p>Agrega, edita y administra tus productos con una experiencia premium, dinámica y visualmente impactante.</p>
     </div>
-    <div class="hero-badge">
-      <span>{{ productos().length }} productos</span>
+    <div class="hero-actions">
+      <div class="hero-badge">
+        <span>{{ productos().length }} productos</span>
+      </div>
+      <div class="hero-pill">⚡ En tiempo real</div>
     </div>
   </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <strong>{{ productos().filter((p) => p.activo).length }}</strong>
+      <span>Disponibles</span>
+    </div>
+    <div class="stat-card">
+      <strong>{{ productos().reduce((sum, p) => sum + p.stock, 0) }}</strong>
+      <span>Unidades en stock</span>
+    </div>
+    <div class="stat-card">
+      <strong>${{ productos().reduce((sum, p) => sum + p.precio, 0).toFixed(2) }}</strong>
+      <span>Valor total</span>
+    </div>
+  </div>
+
+  @if (mensajeEstado) {
+    <div class="status-banner">{{ mensajeEstado }}</div>
+  }
 
   <div class="content-grid">
     <form class="panel form-panel" (ngSubmit)="guardarProducto()">
@@ -40,9 +62,9 @@
       </label>
 
       <div class="actions">
-        <button type="submit">{{ productoEditando ? 'Guardar cambios' : 'Cargar producto' }}</button>
+        <button type="submit" class="primary-btn">{{ productoEditando ? 'Guardar cambios' : 'Cargar producto' }}</button>
         @if (productoEditando) {
-          <button type="button" class="secondary" (click)="resetForm()">Cancelar</button>
+          <button type="button" class="secondary-btn" (click)="resetForm()">Cancelar</button>
         }
       </div>
     </form>
@@ -56,16 +78,20 @@
       <div class="card-grid">
         @for (producto of productos(); track producto.id) {
           <article class="card">
+            <div class="card-visual">
+              <span class="card-icon">⚡</span>
+              <span class="card-category">{{ producto.categoria }}</span>
+            </div>
             <div class="card-top">
               <h4>{{ producto.nombre }}</h4>
               <span class="status" [class.active]="producto.activo">{{ producto.activo ? 'Activo' : 'Inactivo' }}</span>
             </div>
-            <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
             <p><strong>Precio:</strong> ${{ producto.precio }}</p>
             <p><strong>Stock:</strong> {{ producto.stock }}</p>
             <div class="card-actions">
-              <button type="button" class="secondary" (click)="editarProducto(producto)">Editar</button>
+              <button type="button" class="secondary-btn" (click)="editarProducto(producto)">Editar</button>
               <a [routerLink]="['/productos', producto.id]">Ver detalle</a>
+              <button type="button" class="danger-btn" (click)="eliminarProducto(producto.id)">Eliminar</button>
             </div>
           </article>
         }
