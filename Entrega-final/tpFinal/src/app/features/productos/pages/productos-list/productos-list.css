@@ -159,6 +159,12 @@ input:focus {
   margin-top: 6px;
 }
 
+.field-error {
+  color: #dc2626;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
 .primary-btn,
 .secondary-btn,
 .danger-btn,

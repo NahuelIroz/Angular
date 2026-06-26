@@ -1,59 +1,80 @@
-# TpFinal
+# TP Final - Angular
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.12.
+Aplicación web desarrollada en Angular 21 con una interfaz moderna, futurista y dinámica para gestionar usuarios y productos.
 
-## Development server
+## Características principales
 
-To start a local development server, run:
+- Panel principal con diseño premium y métricas visuales.
+- Gestión de usuarios con:
+  - alta de usuarios,
+  - validaciones de formulario,
+  - cambio de estado activo/inactivo,
+  - eliminación,
+  - vista de detalle.
+- Gestión de productos con:
+  - carga y edición,
+  - validaciones,
+  - eliminación,
+  - vista de detalle.
+- Estilos responsivos y experiencia visual moderna.
 
-```bash
-ng serve
-```
+## Tecnologías utilizadas
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 21
+- TypeScript
+- Angular Router
+- Angular Forms
+- SSR / prerendering
+- CSS moderno y responsive
 
-## Code scaffolding
+## Requisitos previos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js 18 o superior
+- npm 10 o superior
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Instalación
 
 ```bash
-ng test
+npm install
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Ejecución en desarrollo
 
 ```bash
-ng e2e
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Luego abrir en el navegador:
 
-## Additional Resources
+```text
+http://localhost:4200/
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Construcción para producción
+
+```bash
+npm run build
+```
+
+Los archivos generados quedarán en la carpeta `dist/`.
+
+## Estructura del proyecto
+
+```text
+src/
+  app/
+    core/           # componentes compartidos como sidebar
+    features/       # módulos de home, usuarios y productos
+    styles/         # estilos globales
+```
+
+## Funcionalidades destacadas
+
+- Home con métricas, gráficos visuales y diseño premium.
+- Catálogo de productos con hover, movimiento y cards dinámicas.
+- Formularios con validaciones para evitar datos incompletos o inválidos.
+- Cambio de estado de usuarios con mensaje de confirmación.
+
+## Notas
+
+Este proyecto fue pensado como una interfaz de administración moderna, con datos en memoria para mostrar el flujo completo de una app CRUD estilizada.

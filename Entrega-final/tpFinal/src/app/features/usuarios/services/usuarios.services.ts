@@ -41,4 +41,12 @@ export class UsuariosService {
   eliminarUsuario(id: number): void {
     this.usuarios.update((actual) => actual.filter((usuario) => usuario.id !== id));
   }
+
+  cambiarEstadoUsuario(id: number): void {
+    this.usuarios.update((actual) =>
+      actual.map((usuario) =>
+        usuario.id === id ? { ...usuario, activo: !usuario.activo } : usuario
+      )
+    );
+  }
 }

@@ -18,6 +18,11 @@ export class UsuariosList {
   mensajeExito = false;
   mensajeError = '';
   mensajeEliminacion = '';
+  erroresUsuario = {
+    nombre: '',
+    email: '',
+    rol: ''
+  };
 
   nuevoUsuario: Omit<Usuario, 'id'> = {
     nombre: '',
@@ -30,22 +35,37 @@ export class UsuariosList {
     this.mostrarFormulario = true;
     this.mensajeExito = false;
     this.mensajeError = '';
+    this.erroresUsuario = { nombre: '', email: '', rol: '' };
   }
 
   cancelarFormulario(): void {
     this.mostrarFormulario = false;
     this.resetFormulario();
     this.mensajeError = '';
+    this.erroresUsuario = { nombre: '', email: '', rol: '' };
+  }
+
+  get esFormularioUsuarioValido(): boolean {
+    const nombre = this.nuevoUsuario.nombre.trim();
+    const email = this.nuevoUsuario.email.trim();
+    const rol = this.nuevoUsuario.rol.trim();
+    const emailDuplicado = this.usuarios().some(
+      (usuario) => usuario.email.toLowerCase() === email.toLowerCase()
+    );
+
+    return (
+      nombre.length >= 2 &&
+      this.esEmailValido(email) &&
+      ['Empleado', 'Administrador', 'Supervisor'].includes(rol) &&
+      !emailDuplicado
+    );
   }
 
   guardarUsuario(): void {
-    if (!this.nuevoUsuario.nombre.trim() || !this.nuevoUsuario.email.trim()) {
-      this.mensajeError = 'Completa nombre y email.';
-      return;
-    }
+    this.erroresUsuario = this.validarUsuario();
 
-    if (!this.esEmailValido(this.nuevoUsuario.email)) {
-      this.mensajeError = 'Ingresa un correo electrónico válido.';
+    if (this.erroresUsuario.nombre || this.erroresUsuario.email || this.erroresUsuario.rol) {
+      this.mensajeError = 'Revisa los campos marcados.';
       return;
     }
 
@@ -61,6 +81,47 @@ export class UsuariosList {
     this.usuariosService.eliminarUsuario(id);
     this.mensajeEliminacion = '✅ El usuario fue eliminado con éxito.';
     this.mensajeExito = false;
+  }
+
+  cambiarEstadoUsuario(id: number): void {
+    this.usuariosService.cambiarEstadoUsuario(id);
+    this.mensajeEliminacion = '✅ Cambio de estado realizado con éxito.';
+    this.mensajeExito = false;
+  }
+
+  private validarUsuario(): { nombre: string; email: string; rol: string } {
+    const errores = {
+      nombre: '',
+      email: '',
+      rol: ''
+    };
+
+    const nombre = this.nuevoUsuario.nombre.trim();
+    const email = this.nuevoUsuario.email.trim();
+    const rol = this.nuevoUsuario.rol.trim();
+    const emailDuplicado = this.usuarios().some(
+      (usuario) => usuario.email.toLowerCase() === email.toLowerCase()
+    );
+
+    if (!nombre) {
+      errores.nombre = 'El nombre es obligatorio.';
+    } else if (nombre.length < 2) {
+      errores.nombre = 'El nombre debe tener al menos 2 caracteres.';
+    }
+
+    if (!email) {
+      errores.email = 'El email es obligatorio.';
+    } else if (!this.esEmailValido(email)) {
+      errores.email = 'Ingresa un correo electrónico válido.';
+    } else if (emailDuplicado) {
+      errores.email = 'Ese correo ya está registrado.';
+    }
+
+    if (!['Empleado', 'Administrador', 'Supervisor'].includes(rol)) {
+      errores.rol = 'Selecciona un rol válido.';
+    }
+
+    return errores;
   }
 
   private esEmailValido(email: string): boolean {

@@ -24,10 +24,34 @@ export class ProductosList {
 
   productoEditando: Producto | null = null;
   mensajeEstado = '';
+  erroresProducto = {
+    nombre: '',
+    categoria: '',
+    precio: '',
+    stock: ''
+  };
+
+  get esFormularioProductoValido(): boolean {
+    const nombre = this.productoForm.nombre.trim();
+    const categoria = this.productoForm.categoria.trim();
+    const precio = Number(this.productoForm.precio);
+    const stock = Number(this.productoForm.stock);
+
+    return (
+      nombre.length >= 2 &&
+      categoria.length >= 2 &&
+      precio > 0 &&
+      Number.isFinite(precio) &&
+      stock >= 0 &&
+      Number.isInteger(stock)
+    );
+  }
 
   guardarProducto(): void {
-    if (!this.productoForm.nombre.trim() || !this.productoForm.categoria.trim()) {
-      this.mensajeEstado = 'Completa nombre y categoría.';
+    this.erroresProducto = this.validarProducto();
+
+    if (this.erroresProducto.nombre || this.erroresProducto.categoria || this.erroresProducto.precio || this.erroresProducto.stock) {
+      this.mensajeEstado = 'Revisa los campos marcados.';
       return;
     }
 
@@ -45,11 +69,48 @@ export class ProductosList {
   editarProducto(producto: Producto): void {
     this.productoEditando = producto;
     this.productoForm = { ...producto };
+    this.erroresProducto = { nombre: '', categoria: '', precio: '', stock: '' };
   }
 
   eliminarProducto(id: number): void {
     this.productosService.eliminarProducto(id);
     this.mensajeEstado = '🗑️ Producto eliminado con éxito.';
+  }
+
+  private validarProducto(): { nombre: string; categoria: string; precio: string; stock: string } {
+    const errores = {
+      nombre: '',
+      categoria: '',
+      precio: '',
+      stock: ''
+    };
+
+    const nombre = this.productoForm.nombre.trim();
+    const categoria = this.productoForm.categoria.trim();
+    const precio = Number(this.productoForm.precio);
+    const stock = Number(this.productoForm.stock);
+
+    if (!nombre) {
+      errores.nombre = 'El nombre es obligatorio.';
+    } else if (nombre.length < 2) {
+      errores.nombre = 'El nombre debe tener al menos 2 caracteres.';
+    }
+
+    if (!categoria) {
+      errores.categoria = 'La categoría es obligatoria.';
+    } else if (categoria.length < 2) {
+      errores.categoria = 'La categoría debe tener al menos 2 caracteres.';
+    }
+
+    if (!Number.isFinite(precio) || precio <= 0) {
+      errores.precio = 'El precio debe ser mayor a cero.';
+    }
+
+    if (!Number.isInteger(stock) || stock < 0) {
+      errores.stock = 'El stock debe ser un número entero mayor o igual a cero.';
+    }
+
+    return errores;
   }
 
   resetForm(): void {
@@ -61,5 +122,6 @@ export class ProductosList {
       stock: 0,
       activo: true
     };
+    this.erroresProducto = { nombre: '', categoria: '', precio: '', stock: '' };
   }
 }

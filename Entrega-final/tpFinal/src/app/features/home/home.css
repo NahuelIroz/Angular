@@ -128,6 +128,100 @@
   opacity: 0.75;
 }
 
+.stats-panel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.stat-block {
+  background: linear-gradient(135deg, #ffffff, #f8fbff);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.stat-block.accent {
+  background: linear-gradient(135deg, #2563eb, #38bdf8);
+  color: white;
+}
+
+.stat-block strong {
+  display: block;
+  font-size: 1.6rem;
+  margin: 4px 0;
+}
+
+.stat-label {
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-size: 0.78rem;
+  opacity: 0.8;
+}
+
+.stat-block small {
+  opacity: 0.9;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.chip {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #dcfce7;
+  color: #15803d;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 140px;
+  padding-top: 16px;
+}
+
+.bar {
+  flex: 1;
+  border-radius: 999px 999px 8px 8px;
+  background: linear-gradient(180deg, #60a5fa, #1d4ed8);
+  animation: rise 2.2s ease-in-out infinite alternate;
+}
+
+.bar.one { height: 45%; }
+.bar.two { height: 70%; animation-delay: 0.2s; }
+.bar.three { height: 85%; animation-delay: 0.4s; }
+.bar.four { height: 60%; animation-delay: 0.6s; }
+
+.feature-list {
+  margin: 0;
+  padding-left: 18px;
+  color: #475569;
+  display: grid;
+  gap: 8px;
+}
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -158,12 +252,21 @@
   50% { transform: translateY(-10px); }
 }
 
+@keyframes rise {
+  from { transform: scaleY(0.9); }
+  to { transform: scaleY(1.05); }
+}
+
 @media (max-width: 900px) {
-  .hero-card {
+  .hero-card,
+  .dashboard-grid,
+  .stats-panel,
+  .features-grid {
     grid-template-columns: 1fr;
   }
 
-  .features-grid {
-    grid-template-columns: 1fr;
+  .stats-panel {
+    display: flex;
+    flex-direction: column;
   }
 }
