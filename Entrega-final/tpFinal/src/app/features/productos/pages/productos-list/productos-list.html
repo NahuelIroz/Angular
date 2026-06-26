@@ -38,32 +38,32 @@
 
       <label>
         Nombre
-        <input type="text" [(ngModel)]="productoForm.nombre" name="nombre" placeholder="Ej. Auriculares" required minlength="2" />
-        @if (erroresProducto.nombre) {
+        <input type="text" [(ngModel)]="productoForm.nombre" name="nombre" placeholder="Ej. Auriculares" required minlength="2" (blur)="marcarCampoProducto('nombre')" />
+        @if (mostrarErrorProducto('nombre')) {
           <small class="field-error">{{ erroresProducto.nombre }}</small>
         }
       </label>
 
       <label>
         Categoría
-        <input type="text" [(ngModel)]="productoForm.categoria" name="categoria" placeholder="Ej. Audio" required minlength="2" />
-        @if (erroresProducto.categoria) {
+        <input type="text" [(ngModel)]="productoForm.categoria" name="categoria" placeholder="Ej. Audio" required minlength="2" (blur)="marcarCampoProducto('categoria')" />
+        @if (mostrarErrorProducto('categoria')) {
           <small class="field-error">{{ erroresProducto.categoria }}</small>
         }
       </label>
 
       <label>
         Precio
-        <input type="number" [(ngModel)]="productoForm.precio" name="precio" step="0.01" min="0.01" required />
-        @if (erroresProducto.precio) {
+        <input type="number" [(ngModel)]="productoForm.precio" name="precio" step="0.01" min="0.01" required (blur)="marcarCampoProducto('precio')" />
+        @if (mostrarErrorProducto('precio')) {
           <small class="field-error">{{ erroresProducto.precio }}</small>
         }
       </label>
 
       <label>
         Stock
-        <input type="number" [(ngModel)]="productoForm.stock" name="stock" min="0" step="1" required />
-        @if (erroresProducto.stock) {
+        <input type="number" [(ngModel)]="productoForm.stock" name="stock" min="0" step="1" required (blur)="marcarCampoProducto('stock')" />
+        @if (mostrarErrorProducto('stock')) {
           <small class="field-error">{{ erroresProducto.stock }}</small>
         }
       </label>

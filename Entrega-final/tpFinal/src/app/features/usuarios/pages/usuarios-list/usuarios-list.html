@@ -24,16 +24,16 @@
         <form class="form-grid" (ngSubmit)="guardarUsuario()">
           <label>
             Nombre
-            <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Ej. Ana Torres" required minlength="2" />
-            @if (erroresUsuario.nombre) {
+            <input type="text" [(ngModel)]="nuevoUsuario.nombre" name="nombre" placeholder="Ej. Ana Torres" required minlength="2" (blur)="marcarCampoUsuario('nombre')" />
+            @if (mostrarErrorUsuario('nombre')) {
               <small class="field-error">{{ erroresUsuario.nombre }}</small>
             }
           </label>
 
           <label>
             Email
-            <input type="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Ej. ana@mail.com" required />
-            @if (erroresUsuario.email) {
+            <input type="email" [(ngModel)]="nuevoUsuario.email" name="email" placeholder="Ej. ana@mail.com" required (blur)="marcarCampoUsuario('email')" />
+            @if (mostrarErrorUsuario('email')) {
               <small class="field-error">{{ erroresUsuario.email }}</small>
             }
           </label>
@@ -44,12 +44,12 @@
 
           <label>
             Rol
-            <select [(ngModel)]="nuevoUsuario.rol" name="rol" required>
+            <select [(ngModel)]="nuevoUsuario.rol" name="rol" required (blur)="marcarCampoUsuario('rol')">
               <option value="Empleado">Empleado</option>
               <option value="Administrador">Administrador</option>
               <option value="Supervisor">Supervisor</option>
             </select>
-            @if (erroresUsuario.rol) {
+            @if (mostrarErrorUsuario('rol')) {
               <small class="field-error">{{ erroresUsuario.rol }}</small>
             }
           </label>

@@ -166,12 +166,40 @@
 }
 
 .error-banner {
-  background: linear-gradient(90deg, #fee2e2, #fecaca);
+  background: linear-gradient(90deg, #fef2f2, #fee2e2);
   color: #b91c1c;
   border: 1px solid #fda4af;
   padding: 10px 12px;
   border-radius: 12px;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.error-banner::before {
+  content: '⚠';
+  font-size: 1rem;
+}
+
+.field-error {
+  color: #b91c1c;
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field-error::before {
+  content: '⚠';
+  font-size: 0.9rem;
+}
+
+.form-grid input.ng-invalid.ng-touched,
+.form-grid select.ng-invalid.ng-touched {
+  border-color: #f43f5e;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.14);
 }
 
 .stats-row {

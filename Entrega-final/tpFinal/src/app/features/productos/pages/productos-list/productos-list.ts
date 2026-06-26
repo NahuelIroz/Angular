@@ -14,6 +14,13 @@ export class ProductosList {
   private productosService = inject(ProductosService);
   productos = this.productosService.productos;
 
+  camposTocadosProducto: Record<keyof typeof this.erroresProducto, boolean> = {
+    nombre: false,
+    categoria: false,
+    precio: false,
+    stock: false
+  };
+
   productoForm: Omit<Producto, 'id'> = {
     nombre: '',
     categoria: '',
@@ -48,6 +55,7 @@ export class ProductosList {
   }
 
   guardarProducto(): void {
+    this.camposTocadosProducto = { nombre: true, categoria: true, precio: true, stock: true };
     this.erroresProducto = this.validarProducto();
 
     if (this.erroresProducto.nombre || this.erroresProducto.categoria || this.erroresProducto.precio || this.erroresProducto.stock) {
@@ -70,11 +78,21 @@ export class ProductosList {
     this.productoEditando = producto;
     this.productoForm = { ...producto };
     this.erroresProducto = { nombre: '', categoria: '', precio: '', stock: '' };
+    this.camposTocadosProducto = { nombre: false, categoria: false, precio: false, stock: false };
   }
 
   eliminarProducto(id: number): void {
     this.productosService.eliminarProducto(id);
     this.mensajeEstado = '🗑️ Producto eliminado con éxito.';
+  }
+
+  marcarCampoProducto(campo: keyof typeof this.erroresProducto): void {
+    this.camposTocadosProducto[campo] = true;
+    this.erroresProducto = this.validarProducto();
+  }
+
+  mostrarErrorProducto(campo: keyof typeof this.erroresProducto): boolean {
+    return this.camposTocadosProducto[campo] && Boolean(this.erroresProducto[campo]);
   }
 
   private validarProducto(): { nombre: string; categoria: string; precio: string; stock: string } {
@@ -103,7 +121,7 @@ export class ProductosList {
     }
 
     if (!Number.isFinite(precio) || precio <= 0) {
-      errores.precio = 'El precio debe ser mayor a cero.';
+      errores.precio = 'El precio no puede ser menor o igual a cero.';
     }
 
     if (!Number.isInteger(stock) || stock < 0) {
@@ -123,5 +141,6 @@ export class ProductosList {
       activo: true
     };
     this.erroresProducto = { nombre: '', categoria: '', precio: '', stock: '' };
+    this.camposTocadosProducto = { nombre: false, categoria: false, precio: false, stock: false };
   }
 }

@@ -14,6 +14,12 @@ export class UsuariosList {
   private usuariosService = inject(UsuariosService);
   usuarios = this.usuariosService.usuarios;
 
+  camposTocadosUsuario: Record<keyof typeof this.erroresUsuario, boolean> = {
+    nombre: false,
+    email: false,
+    rol: false
+  };
+
   mostrarFormulario = false;
   mensajeExito = false;
   mensajeError = '';
@@ -36,6 +42,7 @@ export class UsuariosList {
     this.mensajeExito = false;
     this.mensajeError = '';
     this.erroresUsuario = { nombre: '', email: '', rol: '' };
+    this.camposTocadosUsuario = { nombre: false, email: false, rol: false };
   }
 
   cancelarFormulario(): void {
@@ -62,6 +69,7 @@ export class UsuariosList {
   }
 
   guardarUsuario(): void {
+    this.camposTocadosUsuario = { nombre: true, email: true, rol: true };
     this.erroresUsuario = this.validarUsuario();
 
     if (this.erroresUsuario.nombre || this.erroresUsuario.email || this.erroresUsuario.rol) {
@@ -87,6 +95,15 @@ export class UsuariosList {
     this.usuariosService.cambiarEstadoUsuario(id);
     this.mensajeEliminacion = '✅ Cambio de estado realizado con éxito.';
     this.mensajeExito = false;
+  }
+
+  marcarCampoUsuario(campo: keyof typeof this.erroresUsuario): void {
+    this.camposTocadosUsuario[campo] = true;
+    this.erroresUsuario = this.validarUsuario();
+  }
+
+  mostrarErrorUsuario(campo: keyof typeof this.erroresUsuario): boolean {
+    return this.camposTocadosUsuario[campo] && Boolean(this.erroresUsuario[campo]);
   }
 
   private validarUsuario(): { nombre: string; email: string; rol: string } {
@@ -136,5 +153,6 @@ export class UsuariosList {
       rol: 'Empleado',
       activo: true
     };
+    this.camposTocadosUsuario = { nombre: false, email: false, rol: false };
   }
 }

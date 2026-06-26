@@ -19,4 +19,13 @@ describe('ProductosList', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debe mostrar un mensaje claro cuando falta el nombre del producto', () => {
+    component.productoForm = { nombre: '', categoria: 'Audio', precio: 10, stock: 2, activo: true };
+
+    component.marcarCampoProducto('nombre');
+
+    expect(component.erroresProducto.nombre).toContain('nombre');
+    expect(component.mostrarErrorProducto('nombre')).toBeTrue();
+  });
 });

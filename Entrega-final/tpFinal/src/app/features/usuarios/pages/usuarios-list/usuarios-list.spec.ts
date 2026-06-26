@@ -19,4 +19,13 @@ describe('UsuariosList', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('debe validar el correo con un mensaje claro', () => {
+    component.nuevoUsuario = { nombre: 'Ana', email: 'correo-invalido', rol: 'Empleado', activo: true };
+
+    component.marcarCampoUsuario('email');
+
+    expect(component.erroresUsuario.email).toContain('correo');
+    expect(component.mostrarErrorUsuario('email')).toBeTrue();
+  });
 });
