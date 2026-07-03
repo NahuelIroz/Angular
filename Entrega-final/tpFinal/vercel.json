@@ -1,11 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist/tpFinal/browser",
-  "framework": "angular",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/api/angular"
-    }
-  ]
+  "framework": "angular"
 }
