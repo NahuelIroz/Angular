@@ -1,20 +1,11 @@
 {
-  "buildCommand": "ng build",
+  "buildCommand": "npm run build",
   "outputDirectory": "dist/tpFinal/browser",
-  "serverlessFunctionRegion": "us-east-1",
-  "functions": {
-    "src/server.ts": {
-      "runtime": "nodejs20.x",
-      "maxDuration": 60
-    }
-  },
+  "framework": "angular",
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/server.mjs"
+      "destination": "/api/angular"
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
