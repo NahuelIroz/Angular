@@ -1,0 +1,80 @@
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 30px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.formulario {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.formulario input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.formulario button {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  font-weight: bold;
+}
+
+.formulario button:hover {
+  background-color: #1d4ed8;
+}
+
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+}
+
+.card p {
+  margin: 8px 0;
+}
+
+.btn-eliminar {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #dc2626;
+  color: white;
+  font-weight: bold;
+}
+
+.btn-eliminar:hover {
+  background-color: #b91c1c;
+}
+
+.vacio {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 30px;
+  font-weight: bold;
+}
